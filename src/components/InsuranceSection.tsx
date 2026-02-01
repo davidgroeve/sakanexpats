@@ -63,12 +63,18 @@ export default function InsuranceSection() {
     const existingScripts = document.querySelectorAll('script[src*="rommaana"]');
     existingScripts.forEach(script => script.remove());
 
+    interface ScriptInfo {
+      type: 'external' | 'inline';
+      src: string | null;
+      content: string | null;
+    }
+
     // Extract HTML content (non-script parts)
     const htmlWithoutScripts = htmlCode.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '');
 
     // Find all script tags in the HTML code
     const scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
-    const scripts = [];
+    const scripts: ScriptInfo[] = [];
     let match;
 
     while ((match = scriptRegex.exec(htmlCode)) !== null) {
@@ -87,7 +93,7 @@ export default function InsuranceSection() {
 
     // Execute all scripts in order
     for (const script of scripts) {
-      if (script.type === 'external') {
+      if (script.type === 'external' && script.src) {
         // Create external script element
         const scriptElement = document.createElement('script');
         scriptElement.src = script.src;
@@ -99,7 +105,7 @@ export default function InsuranceSection() {
           scriptElement.onerror = resolve; // Continue even if error
           document.head.appendChild(scriptElement);
         });
-      } else if (script.type === 'inline') {
+      } else if (script.type === 'inline' && script.content) {
         // Create inline script element wrapped in IIFE to avoid redeclaration errors
         const scriptElement = document.createElement('script');
         scriptElement.textContent = `(function() { ${script.content} })();`;
