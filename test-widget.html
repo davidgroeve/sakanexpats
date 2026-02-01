@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rommaana Widget Test</title>
+</head>
+<body>
+    <h1>Rommaana Widget Test</h1>
+
+    <script>
+      // Get your user's auth token from your session/authentication system
+      // This token will be sent to your tokenEndpoint to obtain the Rommaana JWT
+      function getYourUserAuthToken() {
+        // Demo/test token - replace with your actual auth logic in production
+        return 'demo-partner-token-12345';
+      }
+    </script>
+
+    <div id="rommaana-widget"></div>
+    <script src="https://stage.widget.rommaana.com/widget/rommaana-home.umd.js"></script>
+    <script>
+      // Get your user's auth token from your session/authentication system
+      // This token will be sent to your tokenEndpoint to obtain the Rommaana JWT
+      const partnerToken = getYourUserAuthToken();
+
+      RommaanaHomeWidget.init({
+        target: '#rommaana-widget',
+        partnerToken: partnerToken,
+        tokenEndpoint: '/api/v1/auth/getRommaanaToken',
+        theme: {
+            "mode": "glass",
+            "colorScheme": "light",
+            "colors": {
+                "primary": "#d4af37",
+                "secondary": "#ffffff"
+            },
+            "borderRadius": "8px",
+            "language": "en"
+        },
+        onTokenExpired: function() {
+          console.log('Token expired - refresh from your backend');
+        },
+        callbacks: {
+          onPolicySuccess: function(data) {
+            console.log('Policy issued:', data);
+          },
+          onError: function(error) {
+            console.error('Widget error:', error);
+          },
+          onStepChange: function(step) {
+            console.log('Step changed to:', step);
+          }
+        }
+      });
+    </script>
+</body>
+</html>
