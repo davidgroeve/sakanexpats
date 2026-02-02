@@ -32,20 +32,20 @@ export default function UserDashboard() {
   const mockSavedProperties: SavedProperty[] = [
     {
       id: 1,
-      title: "Luxury Villa in Riyadh Diplomatic Quarter",
+      title: t.items.villaRiyadh,
       price: 2500000,
-      city: "Riyadh",
+      city: t.properties.filters.riyadh,
       sqm: 450,
-      image: "/api/placeholder/300/200",
+      image: "/images/property_riyadh_villa.png",
       savedDate: "2024-01-15"
     },
     {
       id: 2,
-      title: "Modern Apartment in Jeddah Corniche",
+      title: t.items.apartmentJeddah,
       price: 850000,
-      city: "Jeddah",
+      city: t.properties.filters.jeddah,
       sqm: 180,
-      image: "/api/placeholder/300/200",
+      image: "/images/property_jeddah_apartment.png",
       savedDate: "2024-01-10"
     }
   ];
@@ -53,7 +53,7 @@ export default function UserDashboard() {
   const mockListings: UserListing[] = [
     {
       id: 1,
-      title: "Family Home in Al-Malaz",
+      title: t.items.familyMalaz,
       price: 1800000,
       views: 145,
       inquiries: 12,
@@ -62,7 +62,7 @@ export default function UserDashboard() {
     },
     {
       id: 2,
-      title: "Commercial Space Dammam",
+      title: t.items.commercialDammam,
       price: 1200000,
       views: 89,
       inquiries: 5,
@@ -86,7 +86,7 @@ export default function UserDashboard() {
       pending: 'bg-yellow-100 text-yellow-800',
       sold: 'bg-blue-100 text-blue-800'
     };
-    
+
     return (
       <span className={`px-3 py-1 rounded-full text-sm font-medium ${styles[status as keyof typeof styles]}`}>
         {status.charAt(0).toUpperCase() + status.slice(1)}
@@ -95,71 +95,69 @@ export default function UserDashboard() {
   };
 
   return (
-    <section id="dashboard" className="py-20 bg-white">
+    <section id="dashboard" className="py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        <div className="mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4 tracking-tight">
             {t.dashboard.title}
           </h2>
+          <div className="w-24 h-1 bg-primary mx-auto rounded-full" />
         </div>
 
         {/* Dashboard Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-6 rounded-lg">
-            <div className="text-3xl font-bold mb-2">{mockSavedProperties.length}</div>
-            <div className="text-blue-100">{t.dashboard.savedProperties}</div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-20">
+          <div className="pomegranate-gradient text-white p-8 rounded-3xl shadow-xl shadow-primary/20 transform hover:-translate-y-1 transition-all duration-300">
+            <div className="text-4xl font-extrabold mb-2">{mockSavedProperties.length}</div>
+            <div className="text-white/80 font-bold uppercase tracking-wider text-xs">{t.dashboard.savedProperties}</div>
           </div>
-          
-          <div className="bg-gradient-to-r from-green-500 to-green-600 text-white p-6 rounded-lg">
-            <div className="text-3xl font-bold mb-2">{mockListings.length}</div>
-            <div className="text-green-100">{t.dashboard.myListings}</div>
+
+          <div className="bg-foreground text-white p-8 rounded-3xl shadow-xl shadow-black/10 transform hover:-translate-y-1 transition-all duration-300">
+            <div className="text-4xl font-extrabold mb-2">{mockListings.length}</div>
+            <div className="text-white/80 font-bold uppercase tracking-wider text-xs">{t.dashboard.myListings}</div>
           </div>
-          
-          <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-6 rounded-lg">
-            <div className="text-3xl font-bold mb-2">
+
+          <div className="bg-white border border-primary/10 p-8 rounded-3xl shadow-lg shadow-primary/5 transform hover:-translate-y-1 transition-all duration-300">
+            <div className="text-4xl font-extrabold text-primary mb-2">
               {mockListings.reduce((sum, listing) => sum + listing.views, 0)}
             </div>
-            <div className="text-purple-100">Total Views</div>
+            <div className="text-muted-foreground font-bold uppercase tracking-wider text-xs">{t.dashboard.totalViews}</div>
           </div>
-          
-          <div className="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-6 rounded-lg">
-            <div className="text-3xl font-bold mb-2">
+
+          <div className="bg-white border border-primary/10 p-8 rounded-3xl shadow-lg shadow-primary/5 transform hover:-translate-y-1 transition-all duration-300">
+            <div className="text-4xl font-extrabold text-primary mb-2">
               {mockListings.reduce((sum, listing) => sum + listing.inquiries, 0)}
             </div>
-            <div className="text-orange-100">Total Inquiries</div>
+            <div className="text-muted-foreground font-bold uppercase tracking-wider text-xs">{t.dashboard.totalInquiries}</div>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="border-b border-gray-200 mb-8">
-          <nav className="-mb-px flex space-x-8">
+        <div className="border-b border-border mb-12">
+          <nav className="-mb-px flex space-x-12">
             <button
               onClick={() => setActiveTab('saved')}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'saved'
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-2 border-b-4 font-bold text-sm transition-all duration-300 ${activeTab === 'saved'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+                }`}
             >
               {t.dashboard.savedProperties}
             </button>
             <button
               onClick={() => setActiveTab('listings')}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'listings'
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-2 border-b-4 font-bold text-sm transition-all duration-300 ${activeTab === 'listings'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+                }`}
             >
               {t.dashboard.myListings}
             </button>
             <button
               onClick={() => setActiveTab('profile')}
-              className={`py-2 px-1 border-b-2 font-medium text-sm ${
-                activeTab === 'profile'
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
-              }`}
+              className={`py-4 px-2 border-b-4 font-bold text-sm transition-all duration-300 ${activeTab === 'profile'
+                ? 'border-primary text-primary'
+                : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'
+                }`}
             >
               {t.dashboard.profile}
             </button>
@@ -176,39 +174,40 @@ export default function UserDashboard() {
                   <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                   </svg>
-                  <p className="text-gray-500 mb-4">No saved properties yet</p>
+                  <p className="text-gray-500 mb-4">{t.dashboard.noSaved}</p>
                   <button className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
-                    Browse Properties
+                    {t.dashboard.browse}
                   </button>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {mockSavedProperties.map((property) => (
-                    <div key={property.id} className="bg-white border border-gray-200 rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
-                      <div className="w-full h-48 bg-gray-200 flex items-center justify-center">
-                        <span className="text-gray-500">Property Image</span>
+                    <div key={property.id} className="card-luxury group overflow-hidden">
+                      <div className="relative overflow-hidden h-48">
+                        <img
+                          src={property.image}
+                          alt={property.title}
+                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        />
                       </div>
-                      <div className="p-6">
-                        <h4 className="text-lg font-semibold mb-2">{property.title}</h4>
-                        <div className="text-xl font-bold text-primary mb-2">
+                      <div className="p-8">
+                        <h4 className="text-lg font-bold mb-2 group-hover:text-primary transition-colors">{property.title}</h4>
+                        <div className="text-xl font-extrabold text-primary mb-4">
                           {formatCurrency(property.price)}
                         </div>
-                        <div className="flex items-center text-sm text-gray-600 mb-4">
-                          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="flex items-center text-sm font-medium text-muted-foreground mb-6">
+                          <svg className="w-5 h-5 mr-2 text-primary/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                           </svg>
-                          {property.city} • {property.sqm} SQM
+                          {property.city} • <span className="ml-1 uppercase">{property.sqm} {t.properties.sqm}</span>
                         </div>
-                        <div className="text-xs text-gray-500 mb-4">
-                          Saved on {new Date(property.savedDate).toLocaleDateString('en-US')}
-                        </div>
-                        <div className="flex space-x-2">
-                          <button className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
-                            Contact
+                        <div className="flex flex-col gap-3">
+                          <button className="w-full px-5 py-3 bg-primary text-white rounded-xl font-bold hover:bg-primary-hover active:scale-95 transition-all duration-300 shadow-lg shadow-primary/20">
+                            {t.dashboard.contact}
                           </button>
-                          <button className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                            Remove
+                          <button className="w-full px-5 py-3 border-2 border-primary/10 text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all duration-300">
+                            {t.dashboard.remove}
                           </button>
                         </div>
                       </div>
@@ -224,18 +223,18 @@ export default function UserDashboard() {
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-semibold">{t.dashboard.myListings}</h3>
                 <button className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
-                  + Add New Listing
+                  {t.dashboard.addNew}
                 </button>
               </div>
-              
+
               {mockListings.length === 0 ? (
                 <div className="text-center py-12 bg-gray-50 rounded-lg">
                   <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                   </svg>
-                  <p className="text-gray-500 mb-4">No active listings</p>
+                  <p className="text-gray-500 mb-4">{t.dashboard.noListings}</p>
                   <button className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
-                    Create Your First Listing
+                    {t.dashboard.createFirst}
                   </button>
                 </div>
               ) : (
@@ -257,28 +256,28 @@ export default function UserDashboard() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                               </svg>
-                              {listing.views} views
+                              {listing.views} {t.dashboard.views}
                             </div>
                             <div className="flex items-center">
                               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                               </svg>
-                              {listing.inquiries} inquiries
+                              {listing.inquiries} {t.dashboard.inquiries}
                             </div>
                             <div className="flex items-center">
                               <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                               </svg>
-                              Posted {new Date(listing.postedDate).toLocaleDateString('en-US')}
+                              {t.dashboard.posted} {new Date(listing.postedDate).toLocaleDateString(language === 'ar' ? 'ar-SA' : 'en-US')}
                             </div>
                           </div>
                         </div>
                         <div className="flex space-x-2 ml-4">
                           <button className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors">
-                            Edit
+                            {t.dashboard.edit}
                           </button>
                           <button className="px-4 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                            Analytics
+                            {t.dashboard.analytics}
                           </button>
                         </div>
                       </div>
@@ -301,13 +300,13 @@ export default function UserDashboard() {
                     <div className="ml-6">
                       <h4 className="text-xl font-semibold">John Doe</h4>
                       <p className="text-gray-600">john.doe@example.com</p>
-                      <p className="text-sm text-gray-500">Member since January 2024</p>
+                      <p className="text-sm text-gray-500">{t.dashboard.memberSince} January 2024</p>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t.dashboard.fullName}</label>
                       <input
                         type="text"
                         defaultValue="John Doe"
@@ -315,7 +314,7 @@ export default function UserDashboard() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t.dashboard.email}</label>
                       <input
                         type="email"
                         defaultValue="john.doe@example.com"
@@ -323,7 +322,7 @@ export default function UserDashboard() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t.dashboard.phone}</label>
                       <input
                         type="tel"
                         defaultValue="+966 50 123 4567"
@@ -331,7 +330,7 @@ export default function UserDashboard() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Iqama Number</label>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">{t.dashboard.iqama}</label>
                       <input
                         type="text"
                         defaultValue="2xxxxxxx"
@@ -341,20 +340,20 @@ export default function UserDashboard() {
                   </div>
 
                   <div className="mt-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">{t.dashboard.bio}</label>
                     <textarea
                       rows={4}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Tell us about yourself..."
+                      placeholder={t.dashboard.bioPlaceholder}
                     ></textarea>
                   </div>
 
                   <div className="mt-8 flex space-x-4">
                     <button className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors">
-                      Save Changes
+                      {t.dashboard.saveChanges}
                     </button>
                     <button className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
-                      Cancel
+                      {t.dashboard.cancel}
                     </button>
                   </div>
                 </div>

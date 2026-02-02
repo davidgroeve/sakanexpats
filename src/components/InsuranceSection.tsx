@@ -114,50 +114,50 @@ export default function InsuranceSection() {
     }
   };
 
-  const mockQuotes = [
-    { company: 'Tawuniya', premium: '2,450 SAR', coverage: 'Full Comprehensive' },
-    { company: 'Bupa Arabia', premium: '2,680 SAR', coverage: 'Premium Plus' },
-    { company: 'MedGulf', premium: '2,390 SAR', coverage: 'Standard' },
-    { company: 'AXA Cooperative', premium: '2,720 SAR', coverage: 'Gold Package' }
-  ];
 
   return (
-    <section id="insurance" className="py-20 bg-gray-50">
+    <section id="insurance" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+        <div className="mb-16 text-center">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-4 tracking-tight">
             {t.insurance.title}
           </h2>
-          <p className="text-xl text-muted-foreground mb-2">
+          <p className="text-xl text-primary font-bold mb-2">
             {t.insurance.subtitle}
           </p>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-muted-foreground font-medium max-w-2xl mx-auto">
             {t.insurance.description}
           </p>
+          <div className="w-24 h-1 bg-primary mx-auto rounded-full mt-6" />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Rommaana Widget Container */}
-          <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-600 to-blue-800 text-white p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-2xl font-bold">Rommaana Insurance</h3>
-                  <p className="text-blue-100">Instant Home Insurance Quotes</p>
+          <div className="card-luxury overflow-hidden bg-white border-primary/10">
+            <div className="pomegranate-gradient text-white p-8">
+              <div className="flex flex-col-reverse sm:flex-row items-center sm:items-center justify-between gap-6 sm:gap-0">
+                <div className="text-center sm:text-left">
+                  <h3 className="text-2xl font-bold mb-1">Premium Insurance Portal</h3>
+                  <p className="text-white/80 font-medium">Digital Property Coverage</p>
                 </div>
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-blue-600">R</span>
+                <div className="h-16 px-4 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 shadow-xl overflow-hidden">
+                  <img
+                    src="https://static.wixstatic.com/media/2dc74f_9ffb3f627ced42538647f70532f450f5~mv2.png/v1/fill/w_378,h_109,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/RommaanaAsset%201.png"
+                    alt="Rommaana Logo"
+                    className="h-8 w-auto brightness-0 invert"
+                  />
                 </div>
               </div>
             </div>
 
-            <div className="p-6">
+            <div className="p-10">
               {!isLoaded ? (
-                <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+                <div className="flex flex-col items-center justify-center py-20">
+                  <div className="w-16 h-16 border-4 border-primary/10 border-t-primary rounded-full animate-spin mb-4"></div>
+                  <p className="text-muted-foreground font-bold animate-pulse">Initializing Portal...</p>
                 </div>
               ) : (
-                <div>
+                <div className="animate-in fade-in duration-700">
                   {/* Actual Rommaana Widget Integration Point */}
                   <div id="rommaana-insurance-root" className="mb-6">
                     {widgetCode ? (
@@ -165,122 +165,161 @@ export default function InsuranceSection() {
                         <div
                           ref={widgetContainerRef}
                           id="rommaana-widget-container"
+                          className="rounded-2xl overflow-hidden shadow-inner bg-muted/20 min-h-[400px]"
                           dangerouslySetInnerHTML={{ __html: widgetCode }}
                         />
-                        <div className="flex justify-end space-x-2 mt-4">
+                        <div className="flex justify-end space-x-3 mt-8">
                           <button
                             onClick={handleClearCode}
-                            className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+                            className="px-6 py-3 border-2 border-border text-muted-foreground rounded-xl font-bold hover:bg-muted transition-all active:scale-95"
                           >
                             {t.widgetModal.clearButton}
                           </button>
                           <button
                             onClick={handleOpenModal}
-                            className="px-4 py-2 text-primary border border-primary rounded-lg hover:bg-primary hover:text-white transition-colors"
+                            className="px-6 py-3 border-2 border-primary text-primary rounded-xl font-bold hover:bg-primary hover:text-white transition-all active:scale-95"
                           >
                             {t.widgetModal.editButton}
                           </button>
                         </div>
                       </div>
                     ) : (
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                        <svg className="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                        </svg>
-                        <p className="text-gray-600 mb-4">Rommaana Widget Container</p>
-                        <p className="text-sm text-gray-500 mb-4">Production API will load here</p>
+                      <div className="border-2 border-dashed border-primary/20 rounded-3xl p-16 text-center bg-primary/5 hover:bg-primary/10 transition-colors group cursor-pointer" onClick={handleOpenModal}>
+                        <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-xl shadow-primary/5 group-hover:scale-110 transition-transform">
+                          <svg className="w-12 h-12 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                          </svg>
+                        </div>
+                        <h4 className="text-xl font-bold mb-3">{t.widgetModal.configureButton}</h4>
+                        <p className="text-muted-foreground font-medium mb-8">Production Portal will initialize here</p>
                         <button
-                          onClick={handleOpenModal}
-                          className="px-6 py-3 bg-primary text-white font-semibold rounded-lg hover:bg-opacity-90 transition-colors"
+                          className="px-10 py-4 bg-primary text-white font-bold rounded-xl shadow-xl shadow-primary/30 hover:bg-primary-hover transition-all active:scale-95"
                         >
                           {t.widgetModal.configureButton}
                         </button>
                       </div>
                     )}
                   </div>
-
                 </div>
               )}
             </div>
           </div>
 
           {/* Insurance Information & Sample Quotes */}
-          <div>
-            <div className="mb-8">
-              <h3 className="text-2xl font-semibold mb-4">Why Choose Rommaana?</h3>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Instant Quotes</h4>
-                    <p className="text-gray-600">Get real-time quotes from multiple KSA insurance providers</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Full Coverage Options</h4>
-                    <p className="text-gray-600">Comprehensive home and fire insurance policies</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold">Expat Friendly</h4>
-                    <p className="text-gray-600">Policies designed for foreign residents in Saudi Arabia</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Sample Insurance Quotes */}
+          <div className="flex flex-col justify-between">
             <div>
-              <h3 className="text-xl font-semibold mb-4">Sample Quotes (2M SAR Property)</h3>
-              <div className="space-y-3">
-                {mockQuotes.map((quote, index) => (
-                  <div key={index} className="bg-white p-4 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <h4 className="font-semibold">{quote.company}</h4>
-                        <p className="text-sm text-gray-600">{quote.coverage}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-lg font-bold text-primary">{quote.premium}</div>
-                        <div className="text-sm text-gray-600">per year</div>
-                      </div>
-                    </div>
+              <h3 className="text-2xl font-bold mb-8 flex items-center">
+                <span className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center mr-4">
+                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </span>
+                {t.insurance.whyChoose}
+              </h3>
+              <div className="space-y-6">
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 mr-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
                   </div>
-                ))}
+                  <div>
+                    <h4 className="text-lg font-bold mb-1">{t.insurance.instantQuotes}</h4>
+                    <p className="text-muted-foreground font-medium leading-relaxed">{t.insurance.instantQuotesDesc}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 mr-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold mb-1">{t.insurance.fullCoverage}</h4>
+                    <p className="text-muted-foreground font-medium leading-relaxed">{t.insurance.fullCoverageDesc}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 mr-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold mb-1">{t.properties.expatFriendly}</h4>
+                    <p className="text-muted-foreground font-medium leading-relaxed">{t.insurance.expatFriendlyDesc}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 mr-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold mb-1">{t.insurance.verifiedProviders}</h4>
+                    <p className="text-muted-foreground font-medium leading-relaxed">{t.insurance.verifiedProvidersDesc}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 mr-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold mb-1">{t.insurance.digitalIssuance}</h4>
+                    <p className="text-muted-foreground font-medium leading-relaxed">{t.insurance.digitalIssuanceDesc}</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-1 mr-5 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold mb-1">{t.insurance.dedicatedSupport}</h4>
+                    <p className="text-muted-foreground font-medium leading-relaxed">{t.insurance.dedicatedSupportDesc}</p>
+                  </div>
+                </div>
+
+                {/* Insurance Tips - Repositioned after Dedicated Support */}
+                <div className="mt-8 p-8 bg-amber-50 rounded-3xl border border-amber-100 flex items-start">
+                  <div className="w-12 h-12 bg-amber-200 rounded-2xl flex items-center justify-center mr-6 flex-shrink-0 animate-pulse">
+                    <svg className="w-6 h-6 text-amber-700 font-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div className="space-y-1">
+                    <h4 className="text-lg font-bold text-amber-900">
+                      {t.insurance.importantInfo}
+                    </h4>
+                    <ul className="space-y-2">
+                      <li className="text-amber-800 text-sm font-medium flex items-center">
+                        <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-2"></span>
+                        {t.insurance.tip1}
+                      </li>
+                      <li className="text-amber-800 text-sm font-medium flex items-center">
+                        <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-2"></span>
+                        {t.insurance.tip2}
+                      </li>
+                      <li className="text-amber-800 text-sm font-medium flex items-center">
+                        <span className="w-1.5 h-1.5 bg-amber-400 rounded-full mr-2"></span>
+                        {t.insurance.tip3}
+                      </li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Insurance Tips */}
-            <div className="mt-8 p-6 bg-yellow-50 rounded-lg">
-              <h4 className="text-lg font-semibold text-yellow-900 mb-2">
-                Important Insurance Information
-              </h4>
-              <ul className="space-y-2 text-sm text-yellow-800">
-                <li>• Home insurance is mandatory for property financing in KSA</li>
-                <li>• Coverage should include fire, natural disasters, and theft</li>
-                <li>• Consider additional coverage for valuable items</li>
-                <li>• Review policy exclusions carefully before purchase</li>
-                <li>• Keep all documentation and receipts for claims</li>
-              </ul>
-            </div>
+
           </div>
         </div>
       </div>

@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import HouseConstruction from "@/components/HouseConstruction";
+import BlueprintConnector from "@/components/BlueprintConnector";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SakanExpats - Premium Real Estate for Expats in Saudi Arabia",
+  title: "SakanExpats - Premium Real Estate for Expat in Saudi Arabia",
   description: "Your trusted gateway to property ownership in the Kingdom. Bilingual real estate marketplace for Saudi Arabia.",
 };
 
@@ -27,7 +30,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
@@ -35,6 +38,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <LanguageProvider>
+          <AnimatedBackground />
+          <HouseConstruction />
+          <BlueprintConnector />
           {children}
         </LanguageProvider>
       </body>
